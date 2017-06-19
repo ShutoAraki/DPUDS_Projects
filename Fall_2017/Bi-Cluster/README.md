@@ -1,4 +1,4 @@
-# Clustering countries based on the alcohol consumption of their inhabitants. 
+# Clustering countries based on the alcohol consumption of its inhabitants. 
 
 This project creates a general purpose clustering algorithm and uses it to compare countries based on alcohol consumption.
 Code and data for this project was borrowed heavily from "Programming Collective Intelligence" by Toby Segaran

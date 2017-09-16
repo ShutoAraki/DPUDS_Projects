@@ -2,12 +2,12 @@
 # that we can actually work with in Python
 
 import os
-
 # struct performs conversions between Python values and C structs represented as Python bytes objects
+import struct
+
 import matplotlib as plt
 from matplotlib import pyplot
 import numpy as np
-import struct
 
 
 """
@@ -15,11 +15,18 @@ import struct
     of 2-tuples with the first element being the label and the second element
     being a numpy.uint8 2D array of pixel data for the given image.
 """
+
+
 def read(dataset):
 
-    path = 'D:\Programming\Python\MNIST'
+    """
+        For those working on the project -- you will need to change the path to wherever you downloaded your MNIST data
+        to.
+    """
 
-    #
+    path = 'D:\Programming\Python\Python Programs\DPUDS_Projects\Fall_2017\MNIST'
+
+    # There are two different datasets: one for training, and one for testing
     if dataset is 'training':
         image_file = os.path.join(path, 'train-images.idx3-ubyte')
         label_file = os.path.join(path, 'train-labels.idx1-ubyte')
@@ -32,6 +39,7 @@ def read(dataset):
 
     # Load everything in some numpy arrays
     with open(label_file, 'rb') as label_file:
+
         # the '8' in read(8) means it reads 8 bytes of the file, or 64 bits
         #
         # since the files we're working with contain only binary data, we have to unpack it
@@ -56,7 +64,8 @@ def read(dataset):
         image = np.fromfile(image_file, dtype=np.uint8).reshape(len(label), rows, cols)
 
     # lambda is basically just a fancy way of saying function. Here, it returns a list of 2-tuples with
-    # the label/image in the corresponding index of each numpy array
+    # the label/image in the corresponding index of each numpy array. In most programs this would be a whole lot of
+    # effort, but Python's power lets us do it in one line.
     get_image = lambda idx: (label[idx], image[idx])
 
     # Create an iterator which returns each image in turn

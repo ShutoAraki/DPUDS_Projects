@@ -1,0 +1,14 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="/static/styles/style.css">
+</head>
+<body>
+<ul>
+  <li><a href=" {{ url_for('main') }}">LinkedIn Search</a></li>
+  <li><a href=" {{ url_for('indeed') }}">Indeed</a></li>
+   <li><a class="active" href=" {{ url_for('glassdoor') }}">Glassdoor</a></li>
+  <li><a href="{{ url_for('about') }}">About</a></li>
+</ul>
+	<center> <h1> Glassdoor Job Data Scrape </h1> </center>
+</body>
+</html>

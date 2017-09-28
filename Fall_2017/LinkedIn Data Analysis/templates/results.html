@@ -1,0 +1,23 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/static/styles/results.css">
+<link rel="stylesheet" type="text/css" href="/static/styles/style.css">
+</head>
+<ul>
+  <li><a class="active" href="#home">LinkedIn Search</a></li>
+  <li><a href="#news">Indeed</a></li>
+  <li><a href="#about">About</a></li>
+</ul>
+<body>
+	<h1> Here are your Results </h1>
+
+	<div class="loading">
+		<h3> Loading</h3>
+	</div>
+	<!-- Return table from flask function and escape it ( |safe) -->
+	{{ table|safe}}
+
+	
+
+</body>
+</html>

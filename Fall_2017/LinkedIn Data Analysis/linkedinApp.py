@@ -53,6 +53,10 @@ def results():
 		#retrieve the job and location search queries that the user specified on the page
 		jobSearch = request.form['job']
 		locSearch = request.form['loc']
+		jobType = request.form['jobType']
+		numResults = request.form['numRes']
+		
+
 		print("Running a search on the position of " + jobSearch + " in " + locSearch + ".")
 		elem2.click()
 
@@ -81,6 +85,7 @@ def results():
 
 		#create the barebones of a dataframe where the job content will go into
 		frame = pd.DataFrame( columns=[i], index=['Job Title', 'Company', 'Languages', 'Total Langs'])
+		frame2 = pd.DataFrame(columns=[i], index=['Job Title', 'Company', 'Languages', 'Total Langs']) 
 
 		#now in the links array created above, iterate through and open up each link (the driver.get() line )
 		for link in links:
@@ -127,17 +132,27 @@ def results():
 			finalArr.append(companies)
 			finalArr.append(languages)
 			finalArr.append(count)
+			if i > 13:
+				frame2[i] = finalArr
+			else:
 
-			#set frame[i] (i = the id/result number from job search) = to finalArry
-			frame[i] = finalArr
+			#set frame[i] (i = the id/result number from job search) = to finalArray
+				frame[i] = finalArr
+
+			
+			if request.form['numRes']=='10':
+				if i == 10:
+					frame = frame.to_html()
+					return render_template("/results.html", table=frame)
 			i = i + 1
 
 		if request.method == 'POST':
 
 			frame = frame.to_html()
+			frame2 = frame2.to_html()
 
 			#send frame to results.html
-			return render_template("/results.html", table=frame)
+			return render_template("/results.html", table=frame, table2= frame2)
 
 # @app.route('/results', methods=['POST'])
 # def signinResults():
@@ -146,9 +161,9 @@ def results():
 # 	signIn = urllib.parse.unquote("https://www.linkedin.com/uas/login?session_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Fjobs%2F%3Ftrk%3Djobs-home-jobsfe-redirect&fromSignIn=true&trk=uno-reg-join-sign-in")
 # 	driver.get(signIn)
 # 	email = driver.find_element_by_name("session_key")
-# 	email.send_keys("tarastataryn_2018@depauw.edu")
+# 	email.send_keys("")
 # 	pwd = driver.find_element_by_name("session_password")
-# 	pwd.send_keys("Leroyiheanacho19$")
+# 	pwd.send_keys("")
 # 	signInBtn = driver.find_element_by_name("signin")
 # 	signInBtn.click()
 # 	input1 = driver.find_element_by_xpath("//input[@placeholder='Search jobs by title, keyword or company']")
@@ -239,5 +254,5 @@ def about():
 
 if __name__ == '__main__':
 	app.before_request(before_request)
-	app.config['Debug=True']
-	app.run(Debug=True)
+	
+	app.run()

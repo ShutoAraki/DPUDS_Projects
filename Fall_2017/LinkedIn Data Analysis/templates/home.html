@@ -27,7 +27,7 @@ input[type=submit]{
     background: #495C70;
     padding: 25px 25px 15px 25px;
     border: 5px solid #53687E;
-    margin-top: 15px;
+    margin-top: 10px;
     display: block;
 }
 }
@@ -58,10 +58,23 @@ p
 <center> <img border="1px solid black" height="300px" width="550px" src="https://recruitee.com/blog/wp-content/uploads/2016/10/LinkedIn.png"> </img> </center>
 <hr> 
 <div id="search">
-<form id="form"action="/results" method="post">
+<form id="form" action="/results" method="post">
+ 
   <center> <h3> LinkedIn Job Search </h3> </center>
-    <p> What position would you like to search for? </p> <input id="job" placeholder="Example: Software Engineer ..." type ="text" name="job">
-    <p> Where would you like to search for? </p> <input id="loc" placeholder="Example: Chicago..." type ="text" name="loc">
+   <p> Before filling in a job position, decide on the category you'd like to choose from: </p>
+   <select name="jobType" required>
+    <option value=""> </option>
+    <option value="Software Engineering"> Software Engineering </option>
+  </select>
+    <p> What position would you like to search for? </p> <input id="job" placeholder="Ex: Software Engineer ..." type ="text" name="job">
+    <p> Where would you like to search for? </p> <input id="loc" placeholder="Ex: Chicago..." type ="text" name="loc">
+  <p> How many job postings would you like to search across?  </p>
+  <select name="numRes" required>
+    <option value=""> </option>
+    <option value="10"> 10 </option>
+    <option value="25"> 25 </option>
+    <option value="50"> 50 </option>
+    <option value="75"> 75 </option>
     <center> <input type="submit" value="Run Search and Gather Data" onclick="searchLoading()"> </center>
 </form>
 </div>

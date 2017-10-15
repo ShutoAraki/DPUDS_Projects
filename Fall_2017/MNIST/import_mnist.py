@@ -24,7 +24,7 @@ def read(dataset):
         to.
     """
 
-    path = 'D:\Programming\Python\Python Programs\DPUDS_Projects\Fall_2017\MNIST'
+    path = 'D:\Programming\Python\DPUDS\DPUDS_Projects\Fall_2017\MNIST'
 
     # There are two different datasets: one for training, and one for testing
     if dataset is 'training':
@@ -34,7 +34,7 @@ def read(dataset):
         image_file = os.path.join(path, 't10k-images.idx3-ubyte')
         label_file = os.path.join(path, 't10k-labels.idx1-ubyte')
     else:
-        print("dataset must be 'testing' or 'training'")
+        print("Dataset must be 'testing' or 'training'")
         raise ValueError
 
     # Load everything in some numpy arrays
@@ -86,24 +86,16 @@ def show(image):
     ax.yaxis.set_ticks_position('left')
     pyplot.show()
 
-# training_data is a list of tuples where the first element is the label and the second is the pixel data
-training_data = list(read(dataset="training"))
-print(len(training_data))
-label, pixel_image = training_data[0]
-# print(label)
-print('One row of pixels: ')
-print(pixel_image[8])
-# convert the pixel data into a matplotlib figure, and show it
-show(pixel_image)
+# returns a 3D list containing the pixel images in training_data with the values converted to a
+# scale of 0.0-1.0 instead of 0-255
 
-""" 
-So, at this point, we have an enormous list of 2-tuples (training_data) where the first element is a label and the
-second is a 28x28 2D array of numbers representing pixels and their intensity, where 0 is the lowest
-intensity (black) and 255 is the highest intensity (white).
-
-The next steps to implement are:
-    1) Each time a training input is analyzed, be sure to flatten it and set its pixel values to 0-1
-    2) Create Network class, used to represent a neural network
-        - refer to the online book for this part
-    3) Create driver/main class to execute the network
-"""
+def convert(training_data) :
+    images = np.zeros((len(training_data), 28, 28), dtype=float)
+    print(images)
+    h = 0
+    for label, pixel_image in training_data:
+        for i in range(len(pixel_image)) :
+            for j in range(len(pixel_image[i])) :
+                images[h][i][j] = (float(pixel_image[i][j]) / 255.0)
+        h += 1
+    return images

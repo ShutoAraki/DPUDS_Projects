@@ -1,6 +1,8 @@
 # Classifying handwritten digits using the MNIST data set
 
-This exploration will use neural networks and tensorflow to examine how handwritten digits can be 
+By Elijah Anderson
+
+This exploration will use a made-from-scratch neural network to examine how handwritten digits can be
 classified by computers.
 
 Some resources to check out if you're interested in learning more about machine learning:

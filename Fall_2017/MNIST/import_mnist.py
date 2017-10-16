@@ -89,13 +89,14 @@ def show(image):
 # returns a 3D list containing the pixel images in training_data with the values converted to a
 # scale of 0.0-1.0 instead of 0-255
 
-def convert(training_data) :
-    images = np.zeros((len(training_data), 28, 28), dtype=float)
-    print(images)
+def convert(image_data) :
+    print('Loading image data... This will take a hot minute!')
+    images = np.zeros((len(image_data), 28, 28), dtype=float)
     h = 0
-    for label, pixel_image in training_data:
+    for label, pixel_image in image_data:
         for i in range(len(pixel_image)) :
             for j in range(len(pixel_image[i])) :
                 images[h][i][j] = (float(pixel_image[i][j]) / 255.0)
         h += 1
+    print('Finished!')
     return images

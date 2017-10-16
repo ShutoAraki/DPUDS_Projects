@@ -1,9 +1,8 @@
 # import_mnist.py converts the dataset of handwritten characters into a numpy array of pixel data
 # that we can actually work with in Python
 
-import os
-# struct performs conversions between Python values and C structs represented as Python bytes objects
-import struct
+import _pickle
+import gzip
 
 import matplotlib as plt
 from matplotlib import pyplot
@@ -17,62 +16,50 @@ import numpy as np
 """
 
 
-def read(dataset):
+def read() :
 
     """
         For those working on the project -- you will need to change the path to wherever you downloaded your MNIST data
         to.
     """
 
-    path = 'D:\Programming\Python\DPUDS\DPUDS_Projects\Fall_2017\MNIST'
+    path = 'D:\Programming\Python\DPUDS\DPUDS_Projects\Fall_2017\MNIST\mnist.pkl.gz'
 
     # There are two different datasets: one for training, and one for testing
-    if dataset is 'training':
-        image_file = os.path.join(path, 'train-images.idx3-ubyte')
-        label_file = os.path.join(path, 'train-labels.idx1-ubyte')
-    elif dataset is 'testing':
-        image_file = os.path.join(path, 't10k-images.idx3-ubyte')
-        label_file = os.path.join(path, 't10k-labels.idx1-ubyte')
-    else:
-        print("Dataset must be 'testing' or 'training'")
-        raise ValueError
+    f = gzip.open(path, 'rb')
+    training_data, validation_data, test_data = _pickle.load(f)
+    f.close()
+    return (training_data, validation_data, test_data)
 
-    # Load everything in some numpy arrays
-    with open(label_file, 'rb') as label_file:
+def load_data_wrapper() :
+    """Return a tuple containing (training_data, validation_data,
+    test_data)
 
-        # the '8' in read(8) means it reads 8 bytes of the file, or 64 bits
-        #
-        # since the files we're working with contain only binary data, we have to unpack it
-        # unpack() converts the binary data into Python 'bytes' objects - in this case, ints
-        #
-        # "The magic number is an integer (MSB first)." - MNIST website; so basically it doesn't matter
-        #
-        # 'I' (unsigned int) is the format we convert the file to
-        magic, num = struct.unpack(">II", label_file.read(8))
+    training_data`` is a list containing 50,000
+    2-tuples ``(x, y)``.  ``x`` is a 784-dimensional numpy.ndarray
+    containing the input image.  ``y`` is a 10-dimensional
+    numpy.ndarray representing the unit vector corresponding to the
+    correct digit for ``x``.
 
-        # fromfile() is an efficient way to read binary data and store it to a numpy array
-        #
-        # dtype indicates what the binary data will be converted into; in this case, 8-bit ints
-        # So, label is just an array of ints representing the labels
-        label = np.fromfile(label_file, dtype=np.int8)
+    ``validation_data`` and ``test_data`` are lists containing 10,000
+    2-tuples ``(x, y)``.  In each case, ``x`` is a 784-dimensional
+    numpy.ndarry containing the input image, and ``y`` is the
+    corresponding classification, i.e., the digit values (integers)
+    corresponding to ``x``.
 
-    with open(image_file, 'rb') as image_file:
-        magic, num, rows, cols = struct.unpack(">IIII", image_file.read(16))
-
-        # image is a huge 2D array of pixel data reshaped into square sections resembling a 28x28 pixel image
-        # In other words, we interpret each image is a big array of numbers
-        image = np.fromfile(image_file, dtype=np.uint8).reshape(len(label), rows, cols)
-
-    # lambda is basically just a fancy way of saying function. Here, it returns a list of 2-tuples with
-    # the label/image in the corresponding index of each numpy array. In most programs this would be a whole lot of
-    # effort, but Python's power lets us do it in one line.
-    get_image = lambda idx: (label[idx], image[idx])
-
-    # Create an iterator which returns each image in turn
-    # yield is a keyword used like return, but returns a generator (an iterator that doesn't store
-    # all the values in memory)
-    for i in range(len(label)):
-        yield get_image(i)
+    Obviously, this means we're using slightly different formats for
+    the training data and the validation / test data.  These formats
+    turn out to be the most convenient for use in our neural network
+    code."""
+    tr_d, va_d, te_d = read()
+    training_inputs = [np.reshape(x, (784, 1)) for x in tr_d[0]]
+    training_results = [vectorized_result(y) for y in tr_d[1]]
+    training_data = zip(training_inputs, training_results)
+    validation_inputs = [np.reshape(x, (784, 1)) for x in va_d[0]]
+    validation_data = zip(validation_inputs, va_d[1])
+    test_inputs = [np.reshape(x, (784, 1)) for x in te_d[0]]
+    test_data = zip(test_inputs, te_d[1])
+    return (training_data, validation_data, test_data)
 
 
 # Render a given numpy.uint8 2D array of pixel data.
@@ -86,17 +73,12 @@ def show(image):
     ax.yaxis.set_ticks_position('left')
     pyplot.show()
 
-# returns a 3D list containing the pixel images in training_data with the values converted to a
-# scale of 0.0-1.0 instead of 0-255
+"""Return a 10-dimensional unit vector with a 1.0 in the jth
+    position and zeroes elsewhere.  This is used to convert a digit
+    (0...9) into a corresponding desired output from the neural
+    network."""
+def vectorized_result(j):
 
-def convert(image_data) :
-    print('Loading image data... This will take a hot minute!')
-    images = np.zeros((len(image_data), 28, 28), dtype=float)
-    h = 0
-    for label, pixel_image in image_data:
-        for i in range(len(pixel_image)) :
-            for j in range(len(pixel_image[i])) :
-                images[h][i][j] = (float(pixel_image[i][j]) / 255.0)
-        h += 1
-    print('Finished!')
-    return images
+    e = np.zeros((10, 1))
+    e[j] = 1.0
+    return e

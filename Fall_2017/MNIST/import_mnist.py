@@ -27,7 +27,7 @@ def read() :
 
     # There are two different datasets: one for training, and one for testing
     f = gzip.open(path, 'rb')
-    training_data, validation_data, test_data = _pickle.load(f)
+    training_data, validation_data, test_data = _pickle.load(f, encoding='latin1')
     f.close()
     return (training_data, validation_data, test_data)
 

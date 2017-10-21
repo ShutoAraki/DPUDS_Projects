@@ -105,6 +105,7 @@ class Network(object) :
     """
     def update_mini_batch(self, mini_batch, learning_rate) :
 
+        print('Updating mini batch...')
         # declare two new numpy arrays for the updated weights & biases
         new_biases = [np.zeros(bias.shape) for bias in self.biases]
         new_weights = [np.zeros(weight_matrix.shape) for weight_matrix in self.weights]
@@ -138,19 +139,19 @@ class Network(object) :
     """
     def backpropagate(self, image, image_value) :
 
+        print('Performing backpropagation...')
         # declare two new numpy arrays for the updated weights & biases
         new_biases = [np.zeros(bias.shape) for bias in self.biases]
         new_weights = [np.zeros(weight_matrix.shape) for weight_matrix in self.weights]
-
         # -------- feed forward --------
         # store all the activations in a list
+        activation = image
         activations = [image]
 
         # declare empty list that will contain all the z vectors
         zs = []
-
         for bias, weight in zip(self.biases, self.weights) :
-            z = np.dot(weight, image) + bias
+            z = np.dot(weight, activation) + bias
             zs.append(z)
             activation = sigmoid(z)
             activations.append(activation)
@@ -206,7 +207,10 @@ training_data, validation_data, test_data = import_mnist.load_data_wrapper()
                                   -- the second layer contains the hidden layer
                                   -- the third layer contains 10 neurons, one for each number 0-9
 """
-net = Network([len(training_data), 30, 10])
+training_data = list(training_data)
+validation_data = list(training_data)
+test_data = list(test_data)
+net = Network([784, 30, 10])
 
 """
     Use stochastic gradient descent to learn from the training data over 30 epochs (i.e. we'll go through

@@ -1,38 +1,39 @@
-# import_mnist.py converts the dataset of handwritten characters into a numpy array of pixel data
-# that we can actually work with in Python
+"""
+    import_mnist.py converts the dataset of handwritten characters into a numpy array of pixel data
+    that we can actually work with in Python
+"""
 
-import _pickle
+import pickle
 import gzip
 
 import matplotlib as plt
-from matplotlib import pyplot
 import numpy as np
 
 
 """
-    Python function for importing the MNIST data set.  It returns an iterator
+    Python module for importing the MNIST data set.  It returns an iterator
     of 2-tuples with the first element being the label and the second element
     being a numpy.uint8 2D array of pixel data for the given image.
 """
 
-
 def read() :
 
     """
-        For those working on the project -- you will need to change the path to wherever you downloaded your MNIST data
+        For those following along -- you will need to change the path to wherever you downloaded your MNIST data
         to.
     """
 
     path = 'D:\Programming\Python\DPUDS\DPUDS_Projects\Fall_2017\MNIST\mnist.pkl.gz'
 
     # There are two different datasets: one for training, and one for testing
+    # The validation set isn't important for the first version of the network -- we'll use it later
     f = gzip.open(path, 'rb')
-    training_data, validation_data, test_data = _pickle.load(f, encoding='latin1')
+    training_data, validation_data, test_data = pickle.load(f, encoding='latin1')
     f.close()
     return (training_data, validation_data, test_data)
 
-def load_data_wrapper() :
-    """Return a tuple containing (training_data, validation_data,
+"""
+    Return a tuple containing (training_data, validation_data,
     test_data)
 
     training_data`` is a list containing 50,000
@@ -50,7 +51,10 @@ def load_data_wrapper() :
     Obviously, this means we're using slightly different formats for
     the training data and the validation / test data.  These formats
     turn out to be the most convenient for use in our neural network
-    code."""
+    code.
+"""
+def load_data_wrapper() :
+
     tr_d, va_d, te_d = read()
     training_inputs = [np.reshape(x, (784, 1)) for x in tr_d[0]]
     training_results = [vectorized_result(y) for y in tr_d[1]]
@@ -61,24 +65,15 @@ def load_data_wrapper() :
     test_data = zip(test_inputs, te_d[1])
     return (training_data, validation_data, test_data)
 
-
-# Render a given numpy.uint8 2D array of pixel data.
-def show(image):
-
-    fig = pyplot.figure()
-    ax = fig.add_subplot(1,1,1)
-    imgplot = ax.imshow(image, cmap=plt.cm.gray)
-    imgplot.set_interpolation('nearest')
-    ax.xaxis.set_ticks_position('top')
-    ax.yaxis.set_ticks_position('left')
-    pyplot.show()
-
-"""Return a 10-dimensional unit vector with a 1.0 in the jth
+"""
+    Return a 10-dimensional unit vector with a 1.0 in the jth
     position and zeroes elsewhere.  This is used to convert a digit
     (0...9) into a corresponding desired output from the neural
-    network."""
+    network.
+"""
 def vectorized_result(j):
 
     e = np.zeros((10, 1))
     e[j] = 1.0
     return e
+

@@ -10,7 +10,8 @@ Some resources to check out if you're interested in learning more about machine 
 1) http://neuralnetworksanddeeplearning.com/chap1.html
 
 This project is heavily based on chapter 1, and will base much of its code on what the author provides for us. This
-is a great read for anyone who wants to learn more about machine learning/neural networks.
+is a great read for anyone who wants to learn more about machine learning/neural networks. I changed it to make it compatible
+with Python 3 as well as make more helpful comments explaining exactly what's going on.
 
 2) https://docs.google.com/a/depauw.edu/presentation/d/1OePEVvaUG33XgSXMQJM7FdtVNCKoVhNPT2v_jRpl1us/edit?usp=sharing
 

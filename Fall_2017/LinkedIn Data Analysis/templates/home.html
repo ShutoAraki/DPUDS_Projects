@@ -40,18 +40,45 @@ p
 {
   color: white;
 }
-
+.column{
+  padding: 10px;
+  float: left;
+}
+.right{
+  width:78%;
+}
+.left{
+  width: 22%;
+}
+.row:after {
+    content: "";
+    clear: both;
+}
 </style>
 </head>
 <body>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <script>
+      var messages = {{ messages | safe }};
+      for( var i=0; i<messages.length; i++){
+        alert(messages[i]);
+      }
+    </script>
+  {% endif %}
+{% endwith %}
+{% block body %}{% endblock %}
 
+<div class="row"> 
+<div class="column left">
 <ul>
   <li><a class="active" href="#home">LinkedIn Search</a></li>
   <li><a href="{{ url_for('indeed')}}">Indeed</a></li>
   <li><a href="{{ url_for('glassdoor') }}" >Glassdoor</a></li>
   <li><a href="{{ url_for('about') }}">About</a></li>
 </ul>
-
+</div>
+<div class="column right"
 <div style="margin-left:25%;padding:1px 16px;height:1000px;">
   <h1> <center> LinkedIn Job Data Scrape </center></h1>
 
@@ -75,10 +102,14 @@ p
     <option value="25"> 25 </option>
     <option value="50"> 50 </option>
     <option value="75"> 75 </option>
-    <center> <input type="submit" value="Run Search and Gather Data" onclick="searchLoading()"> </center>
+    <center> <input type="submit" value="Run Search with Chrome" onclick="searchLoading()"> </center>
+    <input type="submit" formaction="/fResults" method="post" value="Run Search Headless (No Browser)" >
+  </select>
 </form>
 </div>
 </div> 
+</div>
+</div>
 <script> 
   function searchLoading() {
     var job = document.getElementByID("job");

@@ -1,0 +1,127 @@
+
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="/static/styles/style.css">
+<style type="text/css">
+
+input[type=text] {
+    width:40%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid black;
+    background-color: white;
+    color: black;
+    display: block;
+    
+}
+input[type=submit]{
+  display: block;
+  clear: both;
+  margin-top: 10px;
+  font-size: 16px;
+}
+#form{
+    width: 450px;
+    font-size: 16px;
+    background: #495C70;
+    padding: 25px 25px 15px 25px;
+    border: 5px solid #53687E;
+    margin-top: 10px;
+    display: block;
+}
+}
+hr
+{
+  border: 2px solid black;
+  width:100%;
+}
+p
+{
+  color: white;
+}
+.column{
+  padding: 10px;
+  float: left;
+}
+.right{
+  width:78%;
+}
+.left{
+  width: 22%;
+}
+.row:after {
+    content: "";
+    clear: both;
+}
+</style>
+</head>
+<body>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <script>
+      var messages = {{ messages | safe }};
+      for( var i=0; i<messages.length; i++){
+        alert(messages[i]);
+      }
+    </script>
+  {% endif %}
+{% endwith %}
+{% block body %}{% endblock %}
+
+<div class="row"> 
+<div class="column left">
+<ul>
+  <li><a class="active" href="#home">LinkedIn Search</a></li>
+  <li><a href="{{ url_for('indeed')}}">Indeed</a></li>
+  <li><a href="{{ url_for('glassdoor') }}" >Glassdoor</a></li>
+  <li><a href="{{ url_for('about') }}">About</a></li>
+</ul>
+</div>
+<div class="column right"
+<div style="margin-left:25%;padding:1px 16px;height:1000px;">
+  <h1> <center> LinkedIn Job Data Scrape </center></h1>
+
+<center> <img border="1px solid black" height="300px" width="550px" src="https://recruitee.com/blog/wp-content/uploads/2016/10/LinkedIn.png"> </img> </center>
+<hr> 
+<div id="search">
+<form id="form" action="/results" method="post">
+ 
+  <center> <h3> LinkedIn Job Search </h3> </center>
+   <p> Before filling in a job position, decide on the category you'd like to choose from: </p>
+   <select name="jobType" required>
+    <option value=""> </option>
+    <option value="Software Engineering"> Software Engineering </option>
+  </select>
+    <p> What position would you like to search for? </p> <input id="job" placeholder="Ex: Software Engineer ..." type ="text" name="job">
+    <p> Where would you like to search for? </p> <input id="loc" placeholder="Ex: Chicago..." type ="text" name="loc">
+  <p> How many job postings would you like to search across?  </p>
+  <select name="numRes" required>
+    <option value=""> </option>
+    <option value="10"> 10 </option>
+    <option value="25"> 25 </option>
+    <option value="50"> 50 </option>
+    <option value="75"> 75 </option>
+    <center> <input type="submit" value="Run Search with Chrome" onclick="searchLoading()"> </center>
+    <input type="submit" formaction="/fResults" method="post" value="Run Search Headless (No Browser)" >
+  </select>
+</form>
+</div>
+</div> 
+</div>
+</div>
+<script> 
+  function searchLoading() {
+    var job = document.getElementByID("job");
+    var loc = document.getElementByID("loc");
+    if(job.value == "" || loc.value == "")
+    {
+      alert("Please make sure both fields are filled in");
+    }
+    alert("Your search is being performed in a new browser. Please wait while it is being run. ");
+  }
+  </script>
+
+
+</body>
+</html>

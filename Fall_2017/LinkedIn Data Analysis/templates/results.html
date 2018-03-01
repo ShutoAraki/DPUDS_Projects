@@ -1,0 +1,155 @@
+<html>
+<head>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.2/jspdf.plugin.autotable.js"></script>
+
+-->
+
+<link rel="stylesheet" type="text/css" href="/static/styles/results.css">
+<link rel="stylesheet" type="text/css" href="/static/styles/style.css">
+<style>
+table {
+  margin-left: 15%;
+  display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  border-collapse: separate;
+  background:#fff;
+  @include border-radius(5px);
+  margin:50px auto;
+  @include box-shadow(0px 0px 5px rgba(0,0,0,0.3));
+}
+
+thead {
+  @include border-radius(5px);
+}
+
+thead th {
+  font-family: 'Patua One', cursive;
+  font-size:16px;
+  font-weight:400;
+
+  @include text-shadow(1px 1px 0px rgba(0,0,0,0.5));
+  text-align:left;
+  padding:20px;
+  @include background-image(linear-gradient(#646f7f, #4a5564));
+  border-top:1px solid #858d99;
+  
+  &:first-child {
+   @include border-top-left-radius(5px); 
+  }
+
+  &:last-child {
+    @include border-top-right-radius(5px); 
+  }
+}
+
+tbody tr td {
+  font-family: 'Open Sans', sans-serif;
+  font-weight:400;
+  color:#5f6062;
+  font-size:13px;
+  padding:20px 20px 20px 20px;
+  border-bottom:1px solid #e0e0e0;
+  
+}
+
+tbody tr:nth-child(2n) {
+  background:#f0f3f5;
+}
+
+tbody tr:last-child td {
+  border-bottom:none;
+  &:first-child {
+    @include border-bottom-left-radius(5px);
+  }
+  &:last-child {
+    @include border-bottom-right-radius(5px);
+  }
+}
+
+tbody:hover > tr td {
+  @include opacity(0.5);
+  
+  /* uncomment for blur effect */
+  /* color:transparent;
+  @include text-shadow(0px 0px 2px rgba(0,0,0,0.8));*/
+}
+
+tbody:hover > tr:hover td {
+  @include text-shadow(none);
+  color:#2d2d2d;
+  @include opacity(1);
+h1{
+	margin-left: 15%;
+}
+}
+.column{
+  padding: 10px;
+  float: left;
+}
+.right{
+  width:79%;
+}
+.left{
+  width: 21%;
+}
+.row:after {
+    content: "";
+    clear: both;
+}
+</style>
+</head>
+<body>
+<div class="row">
+<div class="column left">
+<ul>
+  <li><a class="active" href="#home">LinkedIn Search</a></li>
+  <li><a href="{{ url_for('indeed')}}">Indeed</a></li>
+  <li><a href="{{ url_for('glassdoor') }}" >Glassdoor</a></li>
+  <li><a href="{{ url_for('about') }}">About</a></li>
+</ul>
+</div>
+<div class="column right">
+	<center> <h1 style="color: white;"> LinkedIn Search Results </h1> </center>
+
+	<!-- <div class="loading">
+		<h3> Loading</h3>
+	</div> -->
+  <center> <h3 style="color: white;"> LinkedIn Job Data Table Results </h3> </center>
+	<!-- Return table from flask function and escape it ( |safe) -->
+  <div id="tables">
+	{{ table|safe}}
+
+	{{ table2|safe}}
+  </div>
+</div>
+	<!--<center> <button onclick="javascript:demoFromHTML()">PDF</button> </center> -->
+</div>
+<!--<script type="text/javascript">
+        function demoFromHTML() {
+            var doc = new jsPDF('p', 'pt');
+
+  var res = doc.autoTableHtmlToJson(document.getElementsByClassName("dataframe"));
+  doc.autoTable(res.columns, res.data, {margin: {top: 80}});
+
+  var header = function(data) {
+    doc.setFontSize(18);
+    doc.setTextColor(40);
+    doc.setFontStyle('normal');
+    //doc.addImage(headerImgData, 'JPEG', data.settings.margin.left, 20, 50, 50);
+    doc.text("Testing Report", data.settings.margin.left, 50);
+  };
+
+  var options = {
+    beforePageContent: header,
+    startY: doc.autoTableEndPosY() + 20
+  };
+
+  doc.autoTable(res.columns, res.data, options);
+
+  doc.save("table.pdf");
+        }
+</script>
+-->
+</body>
+</html>

@@ -27,4 +27,4 @@ net = network.Network([784, 30, 10])
 
     This will take a pretty long time to execute, likely 3-10 minutes
 """
-net.stochastic_gradient_descent(training_data, 30, 10, 3.0, test_data=test_data)
+net.stochastic_gradient_descent(training_data, 30, 10, 1.0, test_data=test_data)

@@ -22,7 +22,12 @@ You kinda need linear algebra to understand machine learning in general. [This v
 ### Videos
 YouTube videos are great! [Siraj Raval](https://www.youtube.com/channel/UCWN3xxRkmTPmbKwht9FuE5A) has a lot of interesting contents including GANs and human pose estimation!
 
-# Method
+
+UPDATE:
+
+<b> Siraj just made an amazing comprehensive [video](https://www.youtube.com/watch?v=WzRonX_bs34) about this project! </b>
+
+# Methods
 Let's try to strike a good balance between theory and practice. So, we will try top-down and bottom-up approaches at the same time!
 ## Top-down
 We start from implementing the pose estimation part. A lot of people did research (as seen in the original paper citations) and we have this open source software [openpose](https://github.com/CMU-Perceptual-Computing-Lab/openpose) by CMU Perceptual Computing Lab. Or, if you have any good ideas as to how we can start implementing this project, you can just do that.

@@ -25,6 +25,29 @@ finally tracks it throughout the whole video by moving the tracking rectangle
 following the target.
 
 Sample end result:
+
 [![](http://img.youtube.com/vi/mZrJs-YWlc0/0.jpg)](http://www.youtube.com/watch?v=mZrJs-YWlc0)
 
 ## Installation
+This section will walk you through the process of installing the necessary tool
+for this project, namely Python and OpenCV.
+
+Go to the [homepage of Anaconda](https://www.anaconda.com/download/#macos) and
+download the distribution for your specific operating system. Be sure to check the "Add to path" option
+while running the installer.
+
+Open your command line and type in the following commands:
+
+`conda create -n myenv python=3.6` (creating a virtual environment with Python 3.6)
+
+`source activate myenv` (activating the virtual environment)
+
+`conda install anaconda-client` (installing Anaconda-Client interface)
+
+`conda install opencv=3.4 -c conda-forge` (installing OpenCV version 3.4 from
+the `conda-forge` channel)
+
+`pip install imutils` (installing the `imutils` package)
+
+After entering these commands and waiting for each of them to finish executing,
+you should have all the dependencies you need to start the project!

@@ -16,3 +16,4 @@ This conceptual understanding should take a lot of time and that's normal. It is
 
 
 ## Second, start diving into the code
+Eli Anderson did an awesome project last year! You can take a look at [his code](https://github.com/DPUDS/DPUDS_Projects/blob/master/Fall_2017/MNIST/network.py) and see if you can translate your conceptual understanding into code.

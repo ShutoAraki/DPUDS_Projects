@@ -22,10 +22,22 @@ You kinda need linear algebra to understand machine learning in general. [This v
 ### Videos
 YouTube videos are great! [Siraj Raval](https://www.youtube.com/channel/UCWN3xxRkmTPmbKwht9FuE5A) has a lot of interesting contents including GANs and human pose estimation!
 
+
+UPDATE:
+
+<b> Siraj just made an amazing comprehensive [video](https://www.youtube.com/watch?v=WzRonX_bs34) about this project! </b>
+
+# Methods
+Let's try to strike a good balance between theory and practice. So, we will try top-down and bottom-up approaches at the same time!
+## Top-down
+We start from implementing the pose estimation part. A lot of people did research (as seen in the original paper citations) and we have this open source software [openpose](https://github.com/CMU-Perceptual-Computing-Lab/openpose) by CMU Perceptual Computing Lab. Or, if you have any good ideas as to how we can start implementing this project, you can just do that.
+## Bottom-up
+At the same time, we can build the foundational knowledge (Linear Algebra, basic programming, and Convolutional Neural Network, etc. whatever you might need) to understand what is going on behind the scene including how the algorithm detects different parts of the body.
+
 # Necessary Equipment
 - A lot of passion, energy, and some time (about 3-5 hours a week or more?)
 - Laptop (recommended)
 
 We have an access to really good brand new GPUs (NVIDIA GTX 1080 Ti) on the basement of Roy O. West Library, so we don't have to worry about computation powers that much. Yay!
 
-I hope everyone is excited! I try to make this project like a study session for the first half of the semester so that we have necessary knowledge about the subject before we start actually implementing the project.
+I hope everyone is excited! We can start from wherever you like (top-down or bottom-up) and if you're interested, contact me via DPUDS Slack.
